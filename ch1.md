@@ -7,15 +7,14 @@
 >
 > https://twitter.com/jamesiry/status/598547781515485184
 
-Functional Programming (FP) is not a new concept by any means. It's been around almost the entire history of programming. However -- and I'm not sure it's fair to say, but! -- it sure hasn't seemed like as mainstream of a concept in the overall developer world until perhaps the last few years. I think FP has more been the realm of academics.
+Functional Programming (FP) ဆိုတာ အယူအဆ အသစ်တစ်ခုတော့လုံးဝ မဟုတ်ပါဘူး။ Programming စကတည်းကရှိနေခဲ့တာပါ။ အခုလိုပြောရင် မျှတပါ့မလား မသိပေမယ့်၊  လွန်ခဲ့တဲ့ နှစ်အနည်းငယ်မတိုင်ခင် အထိ developer နယ်ပယ်မှာ ရေပန်းစားတဲ့ အယူအဆတစ်ခု မဟုတ်ခဲ့တာတော့ သေချာပါတယ်။ FP ဟာ သင်ကြားရေးနယ်ပယ်မှာ ပိုနာမည်ကြီးတယ်လို့ကျနော်ထင်ပါတယ်။
 
-But that's all changing. A groundswell of interest is growing around FP, not just at the languages level but even in libraries and frameworks. You very well might be reading this text because you've finally realized FP is something you can't ignore any longer. Or maybe you're like me and you've tried to learn FP many times before but struggled to wade through all the terms or mathematical notation.
+ဒါပေမယ့် အဲ့ဒါတွေ အကုန်လုံးက စိန်ခေါ်မှုတွေပါပဲ။ FP နဲ့ ပတ်သက်ပြီး စိတ်ဝင်စားမှု မြင့်တက်လာတာက languages အဆင့်သာမကပဲ libraries တွေ frameworks တွေအထိပါပဲ။သင်အခုဒီစာကိုဖတ်နေတာကလည်း FB ဆိုတာ လှစ်လျူရှုထားလို့ မရတော့ဘူးလို့ သင်သဘောပေါက်လို့လဲ ဖြစ်ကောင်းဖြစ်မှာပါ။ ဒါမှ မဟုတ်သင်ဟာ ကျနော့်လိုပဲ FP ကို အရင်က အကြိမ်ပေါင်းများစွာကြိုးစားဖူးပေမယ့် အခေါ်အဝေါ်တွေ သင်္ချာ အသုံးအနှုန်းတွေကြားမှာ ရုန်းကန်နေရတာလည်း ဖြစ်နိုင်ပါတယ်။ 
 
-This first chapter's purpose is to lay the groundwork to answer questions like: "Why should I use FP style with my code?" and "How does Functional-Light JavaScript compare to what others say about FP?" Starting with Chapter 2 throughout the rest of the book, we'll begin uncovering, piece by piece, the techniques and patterns of writing JS in functional-light style.
+ပထမ သင်ခန်းစာရဲ့ ရည်ရွယ်ချက်က "ဘာလို့ ငါ့ရဲ့ code တွေကို FP စတိုင်သုံးရမှာလဲ" နဲ့ "Javascript ရဲ့ FP နဲ့ တခြား FP ကို ဘယ်လိုနှိုင်းယှဉ်မှာလဲ" ဆိုတဲ့ မေးခွန်းလိုမျိုးတွေကို ရှင်းပြဖို့ လိုအပ်တာ လုပ်သွားမှာဖြစ်ပါတယ်။ Chapter 2 ကနေစပြီး စာအုပ်ပြီးတဲ့ အထိ JS ကို functional lite ပုံစံမျိုး ဘယ်လိုရေးမလဲဆိုတာ တစ်ပိုင်းတစ်ပိုင်း ရှင်းပြသွားမှာပါ။
 
 ## At A Glance
-
-Let's briefly illustrate the notion of "Functional-Light JavaScript" with a before-and-after snapshot of code. Consider:
+Functional-Lite Javascript ရဲ့ သဘောကို before-and-after code နဲ့ အတိုချုပ်သရုပ်ပြကြည့်ရအောင်။ စဉ်းစားကြည့်ပါ။
 
 ```js
 var numbers = [4,10,0,27,42,17,15,-6,58];
@@ -47,8 +46,7 @@ function outputMsg() {
     console.log( msg );
 }
 ```
-
-Now consider a very different style that accomplishes exactly the same outcome:
+အခု အဖြေတော့ အတူတူပဲ၊ မတူတဲ့ ပုံစံ တစ်ခုကို စဉ်းစားကြည့်ပါ။
 
 ```js
 var sumOnlyFavorites = FP.compose( [
@@ -71,76 +69,84 @@ printMagicNumber( numbers );        // The magic number is: 42
 function sum(x,y) { return x + y; }
 function constructMsg(v) { return `The magic number is: ${v}`; }
 ```
+FP နဲ့ Functional-Light ကိုသင်နားလည်ပြီဆိုရင် ဒုတိယ စာပိုဒ်ကို ဖတ်ပြီး  စိတ်ထဲကနေ နားလည်အောင်ကြိုးစားတဲ့အခါ ဒါမျိုးဖြစ်ကောင်းဖြစ်ပါလိမ့်မယ်။
 
-Once you understand FP and Functional-Light, this is likely how you'd *read* and mentally process that second snippet:
-
-> We're first creating a function called `sumOnlyFavorites(..)` that's a combination of three other functions. We combine two filters, one checking if a value is greater-than-or-equal to 10 and one for less-than-or-equal to 20. Then we include the `sum(..)` reducer in the transducer composition. The resulting `sumOnlyFavorites(..)` function is a reducer that checks if a value passes both filters, and if so, adds the value to an accumulator value.
->
+> ကျနော်တို့ functions သုံးခုပေါင်းထားတဲ့ `sumOnlyFavourites(..)`function တစ်ခုကို တည်ဆောက်ပါ့မယ်။ value တစ်ခုက 10 (သို့) 10 ထက်ကြီးလား စစ်တဲ့ filter နှင့် 20 သို့ 20 ထက်ငယ်လား စစ်တဲ့ filter နှစ်ခုကို ပေါင်းစပ်ပါ့မယ်။
+> နောက်ပြီး transducer composition မှာ `sum(..)` reducer ကို ပေါင်းထည့်ပါ့မယ်။ ရလာတဲ့ `sumOnlyFavourites(..)` က ထည့်လိုက်တဲ့ value တစ်ခုက filters နှစ်ခုစလုံးကို pass လား၊ pass တယ်ဆိုရင် accumulator value ထဲကို ပေါင်းထည့်တဲ့ reducer function တစ်ခုဖြစ်ပါတယ်။
+> 
 > Then we make another function called `printMagicNumber(..)` which first reduces a list of numbers using that `sumOnlyFavorites(..)` reducer we just defined, resulting in a sum of only numbers that passed the *favorite* checks. Then `printMagicNumber(..)` pipes that final sum into `constructMsg(..)`, which creates a string value that finally goes into `console.log(..)`.
-
+> နောက်ပြီး `printMagicNumber(..)`လို့ခေါ်တဲ့ function တစ်ခုပြုလုပ်ပါမယ်။ အဲ့ဒီ function က `sumOnlyFavourites(..)` သုံးပြီး numbers list ကို ပထမဆုံး reduce လုပ်မယ်။ "favourite" check ကို pass လာတဲ့ numbers တွေပဲ ပေါင်းထားတာရလာမယ်။ နောက်ပြီး `printMagicNumber(..)`ကနေ နောက်ဆုံး ပေါင်းလဒ်ကို `constructMsg(..)`ထဲထည့်ပေးပြီး ရလာတဲ့ string value ကို နောက်ဆုံး `console.log(..)`
+> 
 All those moving pieces *speak* to an FP developer in ways that likely seem highly unfamiliar to you right now. This book will help you *speak* that same kind of reasoning so that it's as readable to you as any other code, if not more so!
 
-A few other quick remarks about this code comparison:
+အခု code နှိုင်းယှဉ်မှုနှင့်ပတ်သတ်ပြီး မှတ်ချက်အချို့၊
 
-* It's likely that for many readers, the former snippet feels closer to comfortable/readable/maintainable than the latter snippet. It's entirely OK if that's the case. You're in exactly the right spot. I'm confident that if you stick it out through the whole book, and practice everything we talk about, that second snippet will eventually become a lot more natural, maybe even preferable!
+* စာဖတ်သူတော်တော်များများအတွက် အရင် snippet က နောက်ပိုင်း snippet ထက် ပိုပြီး သက်သာမယ်၊ ဖတ်ရအဆင်ပြေမယ်၊ ထိန်းသိမ်းရ လွယ်ကူမယ်လို့ ခံစားရနိုင်ပါတယ်။ အဲ့ဒီလိုထင်ရင်လည်း လုံဝ အဆင်ပြေပါတယ်။ သင်မှန်ပါတယ်။ သင်ဟာ စာအုပ်တစ်ခုလုံး အဆုံးအထိဖတ်မယ်၊ ဆွေးနွေးတဲ့ အကြောင်းအရာတွေအကုန် လေ့ကျင့်မယ် ဆိုရင် ဒုတိယ snippet က တစ်ခါတလေ ပိုပြီး သဘာဝ ကျမယ်၊ ပိုပြီးတော့တောင် သုံးသင့်မယ်လို့ ယုံကြည်ပါတယ်။
 
-* Maybe you would have done the task significantly or entirely different from either snippet presented. That's OK, too. This book won't be prescriptive in telling you that you should do something a specific way. Our goal is to illustrate the pros/cons of various patterns and enable you to make those decisions. By the end of this book, how you would approach the task may fall a little closer to the second snippet than it does right now.
+* သင်ဟာ အပေါ်က နှစ်ခုစလုံးနဲ့ မတူပဲ လုံဝ ကွဲပြားခြားနားပြီး ကောင်းမွန်တဲ့ ပုံစံနဲ့ task တွေကို ဖြေရှင်းခဲ့တာလည်းဖြစ်နိုင်ပါတယ်။ အဲ့လိုဆိုလည်း အဆင်ပြေပါတယ်။ ဒီစာအုပ်ဟာ ဒီနည်းအတိုင်း ဒီလိုပဲလုပ်ပါလို့ ပြောမှာ မဟုတ်ပါဘူး။ ရည်ရွယ်ချက်က မတူတဲ့ patterns တွေရဲ့ ကောင်းကွက်၊ဆိုးကွက်တွေကို သရုပ်ပြပြီး သင့်ကိုမှန်ကန်တဲ့ ဆုံဖြတ်ချက်တွေချနိုင်အောင်ပါ။ ဒီစာအုပ်ဖတ်လို့ပြီးရင် ပုဒ်စာ တစ်ခုကို ဖြေရှင်းဖို့ ချည်းကပ်တဲ့အခါ ဒုတိယ snippet နဲ့ ပိုရင်းနီးမှာပါ။
 
-* It's also possible that you're already a seasoned FP developer who's scanning through the start of this book to see if it has anything useful for you to read. That second snippet certainly has some bits that are quite familiar. But I'm also betting that you thought, "Hmmm, I wouldn't have done it *that* way..." a couple of times. That's OK, and entirely reasonable.
+* သင့်အတွက် အသုံးဝင်တဲ့ ဖတ်စရာ တစ်ခုခုများရှိမလားလို့ စာအုပ်အစမှာ ရှာဖွေနေတဲ့ အတွေ့အကြုံရှိပြီးသား FP developer လည်း ဖြစ်နိုင်ပါတယ်။ ဒုတိယ snippet မှာ ရင်းနှီးပြီးသား အစိတ်အပိုင်းတွေ အသေအချာ ရှိပါတယ်။ ငါဆိုရင်တော့ အဲ့လိုလုပ်ခဲ့မှာ မဟုတ်ဘူးလို့ မကြခဏ တွေးနေမယ်လို့လည်း လောင်းပါတယ်။ အဲ့လိုတွေးတာလည်း အဆင်ပြေပြီး ဆီလျော်ပါတယ်။
 
-    This is not a traditional, canonical FP book. We'll at times seem quite heretical in our approaches. We're seeking to strike a pragmatic balance between the clear undeniable benefits of FP, and the need to ship workable, maintainable JS without having to tackle a daunting mountain of math/notation/terminology. This is not *your* FP, it's "Functional-Light JavaScript".
+  အခုစာအုပ်ဟာ သမရိုးကျ FB စာအုပ် မဟုတ်ပါဘူး။ We'll at times seem quite heretical in our approaches. We're seeking to strike a pragmatic balance between the clear undeniable benefits of FP, and the need to ship workable, maintainable JS without having to tackle a daunting mountain of math/notation/terminology. ဒါဟာ သင့်ရဲ့ FP မဟုတ်ပါဘူး။ "Functional-Lite JavaScript" ပဲဖြစ်ပါတယ်။
 
-Whatever your reasons for reading this book, welcome!
+ဒီစာအုပ်ကို ဘယ်လို အကြောင်းကြောင့်ပဲဖတ်ဖတ် ကြိုဆိုပါတယ်။
 
 ## Confidence
 
-I have a very simple premise that sort of underlies everything I do as a teacher of software development (in JavaScript): code that you cannot trust is code that you do not understand. The reverse is true, also: code that you don't understand is code you can't trust. Furthermore, if you cannot trust or understand your code, then you can't have any confidence whatsoever that the code you write is suitable to the task. You run the program and basically just cross your fingers.
+ JavasScript သုံးပြီး software developer ဆရာအဖြစ် အလုပ်လုပ်ရင်း ကျနော့မှာ အလွန်ရိုးရှင်းတဲ့ ယူဆချက်ရှိပါတယ်။ အဲ့ဒါက သင်ယုံလို့မရတဲ့ code က သင်နားမလည်တဲ့ code ပါပဲ။ ပြောင်းပြန်ဆိုလည်းမှန်ပါတယ်။ သင်နားမလည်တဲ့ code ဟာ သင် ယုံလို့ မရတဲ့ code ပါပဲ။ နောက်ပြီး သင့် code ကို ယုံလို့မရဘူး နားမလည်ဘူးဆိုရင် သင့်ရဲ့ code ဟာ ပြသနာအတွက် သင့်တော်တယ်လို့ ယုံကြည်ချက် မရနိုင်ပါဘူး။ သင့်ရဲ့ program ကို run ကြည့်ပြီး ကံကောင်းပါစေဆုတောင်းရမှာပါ။
 
-What do I mean by trust? I mean that you can verify, by reading and reasoning, not just executing, that you understand what a piece of code *will* do; you aren't just relying on what it *should* do. Perhaps more often than we should, we tend to rely on verification of our program's correctness by running test suites. I don't mean to suggest tests are bad. But I do think we should aspire to be able to understand our code well enough that we know the test suite will pass before it runs.
+ဒီနေရာမှာ ယုံကြည်မှုဆိုတာ သင်က သင့် code ကို run ကြည့်မှ မဟုတ်ပဲ ဖတ်ကြည့်ပြီးဖြစ်ဖြစ် စဉ်းစားပြီးဖြစ်ဖြစ် ဒီ code ဟာ ဘာလုပ်သင့်တယ် မဟုတ်ပဲ၊ ဒီလိုအလုပ်လုပ်ရမယ်လို့ အသေအချာသိတာကိုပြောတာပါ။
+ 
+ဖြစ်နိုင်ခြေက ကျနော်တို့က ကျနော်တို့ program တွေရဲ့ မှန်ကန်မှုကို test suites တွေ run လို့ရတဲ့ အဖြေပေါ်မှာ မှီခိုလေ့ ရှိပါတယ်။ tests တွေက မကောင်းဘူး လို့ မဆိုလိုပါဘူး။ ဒါပေမယ့် test suite တွေ မ run ကြည့်ခင် ဒီ test suite တွေ pass မယ်လို့ ကိုယ့် code ကိုယ် ကောင်းကောင်း နားလည်သင့်ပါတယ်။ 
 
-The techniques that form the foundation of FP are designed from the mindset of having far more confidence over our programs just by reading them. Someone who understands FP, and who's disciplined enough to diligently use throughout their programs, will write code that they **and others** can read and verify that the program will do what they want.
+FP ရဲ့ အခြေခံ နည်းစနစ်က ကိုယ့်ရဲ့ program ကို ဖတ်ကြည့်ယုံနဲ့ ယုံကြည်မှုရှိရမယ်ဆိုတဲ့ အပေါ်မှာ ဖွဲ့စည်းထားတာပါ။ ကိုယ့်ရဲ့ program မှာသုံးဖို့ FP ကို ဂရုတစိုက် နိုင်နိုင်နင်းနင်း သိတဲ့ သူဟာ သူကိုယ်တိုင်နဲ့ **တခြားသူ**တွေရော သူတို့ လိုချင်တဲ့ အတိုင်း အလုပ်လုပ်မယ်လို့ အသေအချာသိအောင် code တွေရေးမှာပါ။
 
-Confidence is also increased when we use techniques that avoid or minimize likely sources of bugs. That's perhaps one of the biggest selling points of FP: FP programs often have fewer bugs, and the bugs that do exist are often in more obvious places, so they're easier to find and fix. FP code tends to be more bug resistant -- certainly not bug proof, though.
+bugs တွေအနည်းဆုံး သို့မဟုတ် မရှိတဲ့ နည်းစနစ်တွေ သုံးတဲ့ အခါ ယုံကြည်မှုလည်းမြင့်တက်လာပါတယ်။ အဲ့ဒါက FP ရဲ့ အကြီးဆုံး အားသာချက်လည်း ဖြစ်နိုင်ပါတယ်။ FP program တွေက bugs နည်းတယ်၊ ရှိရင်လည်း ထင်ရှားတဲ့ နေရာတွေမှာ ရှိတယ်၊ အဲ့ဒီ အတွက် ရှာပြီး ပြင်ဆင်ဖို့ လွယ်တယ်။ FP code တွေက bugs နည်းလေ့ ရှိပေမယ့် လုံးဝ မရှိဘူးပြောတာ မဟုတ်ပါဘူး။
 
-As you journey through this book, you will begin to develop more confidence in the code you write, because you will use patterns and practices that are already well-proven; and you'll avoid the most common causes of program bugs!
+ဒီစာအုပ်ဖတ်ရင်း  သင်ဟာ ယုံကြည်စိတ်ချရတဲ့ patterns တွေ practices တွေကို သုံးရင်း program bugs ဖြစ်လေ့ရှိတဲ့ အကြောင်းရင်းတွေ ရှောင်နိုင်မှာ ဖြစ်တဲ့ အတွက် သင်ရေးတဲ့ code ကို သင်ပိုယုံကြည်လာမှာပါ
 
 ## Communication
 
-Why is functional programming important? To answer that, we need to take a bigger step back and talk about why programming itself is important.
+FP ဘာလို့ အရေးကြီးတာလဲ။ အဲ့ဒါကိုဖြေဖို့ ခပ်ဝေးဝေး နောက်ပြန်ဆုတ်ပြီး programming ကိုယ်တိုင်ကိုက ဘာလို့ အရေးကြီးတာလဲ ပြောဖို့လိုအပ်ပါတယ်။
 
-It may surprise you to hear this, but I don't believe that code is primarily a set of instructions for the computer. As a matter of fact, I think the fact that code instructs the computer is almost a happy accident.
+သင်ဒါကိုကြားရင် အံ့သြမှာပါ။ ဒါပေမယ့် code ဆိုတာ computer အတွက် ညွှန်ကြားချက် အစုအဝေးလို့ ကျနော်တော့ မယုံပါဘူး။  တကယ်တော့ ကျနော်တော့ computer ကို code က ညွှန်ကြားတယ် ဆိုတာ မတော်တဆ ဖြစ်သွားတာပါ။
 
-I believe very deeply that the vastly more important role of code is as a means of communication with other human beings.
+code ရဲ့ ပိုအရေးကြီးတဲ့ အပိုင်းက လူသားတွေ အချင်းချင်း ဆက်သွယ်ဖို့လို့ ကျနော် နက်နက်ရှိုင်းရှိုင်း ယုံကြည်ပါတယ်။
 
-You probably know by experience that an awful lot of your time spent "coding" is actually spent reading existing code. Very few of us are so privileged as to spend all or most of our time simply banging out all new code and never dealing with code that others (or our past selves) wrote.
+သင့်ရဲ့ coding အချိန်တော်တော်များများက ရှိပြီးသား code တွေဖတ်ရင်း ကုန်သွားတယ်ဆိုတာ အတွေ့အကြုံအရ သင်သိရင်သိမှာပါ။ လူအနည်းငယ်ပဲ အချိန်အများစုကို တခြားသူ(ကိုယ်ကိုယ်တိုင်) ရေးထားတဲ့ code တွေကြည့်စရာ မလိုပဲ code အသစ်တွေနဲ့ အချိန်ကုန်ခွင့်ရှိတာပါ။
 
-It's widely estimated that developers spend 70% of code maintenance time on reading to understand it? That is eye-opening. 70%. No wonder the global average for a programmer's lines of code written per day is about 10. We spend about 7 hours of our day just reading the code to figure out where those 10 lines should go!
+ developer တွေရဲ့ အချိန် 70% ကို code ကို maintenance လုပ်ဖို့ ဖတ်ပြီး နားလည်ဖို့ ကြိုးစားရင်း ကုန်ဆုံးသွားတယ်လို့ တော်တော်များများ ခန့်မှန်းကြတယ်။ ဒါက မျက်စိပွင့်စေပါတယ်။ တကမ္ဘာလုံး အတိုင်းအတာနဲ့ ယှဉ်ရင် programmer တစ်ယောက်ရဲ့ တစ်နေ့ ရေးတဲ့ code အကြောင်းရေ 10 ကြောင်းလောက်ပဲရှိတာ အံသြစရာ မဟုတ်ပါဘူး။ ကျနော်တို့ဟာ ကျနော်တို့ရဲ့ တစ်နေ့တာကို အဲ့ဒီ code 10 ကြောင်း ဘယ်နားသွားရေးရမလဲ တွေးနေရတာနဲ့ အချိန်ကုန်တာပါ။
 
-I think we should focus a lot more on the readability of our code. And by the way, readability is not just about fewer characters. Readability is actually most impacted by familiarity. [1]
 
-If we are going to spend our time concerned with making code that will be more readable and understandable, FP is central in that effort. The principles of FP are well established, deeply studied and vetted, and provably verifiable. Taking the time to learn and employ these FP principles will ultimately lead to more readily and recognizably familiar code for you and others. The increase in code familiarity, and the expediency of that recognition, will increase code readability.
+ကျနော်တော့ ကျနော်တို့ code တွေရဲ့ readability ကို ပို ဂရုစိုက်သင့်တယ် ထင်ပါတယ်။ ပြီးတော့ စကားမစပ် readability is not just about fewer characters. Readability is actually most impacted by familiarity. [1]
 
-For example, once you learn what `map(..)` does, you'll be able to almost instantly spot and understand it when you see it in any program. But every time you see a `for` loop, you're going to have to read the whole loop to understand it. The syntax of the `for` loop may be familiar, but the substance of what it's doing is not; that has to be *read*, every time.
+ကျနော်တို့ အချိန်တွေကို ဖတ်လွယ် နားလည်လွယ်အောင် ကြိုးစားမယ်ဆိုရင် FP က အဲ့ဒီ ကြိုးစားမှုမှာ အချက်အချာ ကျပါတယ်။ FP ရဲ့ စည်းကမ်းတွေဟာ အခြေကျပြီးသား၊ နက်နက်နဲနဲ လေ့လာပြီးသား ဖြစ်ပြီး သက်သေလည်းပြနိုင်ပါတယ်။ အဲ့ဒီ FP စည်းကမ်းတွေကို အချိန်ယူ သင်ပြီး အသုံးချခြင်းက သင်ကိုယ်တိုင် အတွက်ရော တခြားသူတွေ အတွက်ပါ လွယ်လွယ်ကူကူနဲ့ ရင်းနှီး မှတ်မိလွယ်တဲ့ code  တွေအဖြစ် ဉီးတည်စေမှာပါ။ code ရဲ့ ရင်းနှီးမှု နဲ့ မှတ်မိလွယ်မှု တိုးလာတာက code readability ပါ တိုးတက်စေပါတယ်။
 
-By having more code that's recognizable at a glance, and thus spending less time figuring out what the code is doing, our focus is freed up to think about the higher levels of program logic; this is the important stuff that most needs our attention anyway.
+ဉပမာ သင်က `map(..)` ဘယ်လိုအလုပ်လုပ်လဲ နားလည်ရင် တခြားဘယ် program မှာပဲ မြင်မြင် ချက်ခြင်းနားလည်နိုင်ပါတယ်။ ဒါပေမယ့် သင် `for`loop ကို မြင်တဲ့ အကြိမ်တိုင်းတော့ နားလည်ဖို့  loop တစ်ခုလုံး ဖတ်ရမှာပါ။ `for` loop ရဲ့ syntax ကို ရင်နှီးပေမယ့် ဘယ်လို အလုပ်လုပ်လဲကတော့ အမြဲတမ်း ဖတ်ကြည့်မှ သိရမှာပါ။
 
-FP (at least, without all the terminology weighing it down) is one of the most effective tools for crafting readable code. *That* is why it's so important.
+ကြည့်တာနဲ့ မှတ်မိတဲ့ code များများ ရှိခြင်းအားဖြင့် ဒီ code ဘယ်လို အလုပ်လုပ်လဲ တွေးရနဲပြီး ကျနော်တို့ရဲ့ အာရုံစိုက်မှုက ပိုအရေးကြီးတဲ့ program logic ကို တွေးနိုင်ပါတယ်။ အာရုံစိုက်ဖို့ အများဆုံးလိုအပ်တာကလည်း program logic ပါပဲ။
+
+FP (အနည်းဆုံးတော့ အချက်အလက်တွေ အကုန်လုံး မနှိုင်းယှဉ်ဘဲ) readable code တွေ တည်ဆောက်ဖို့ အထိရောက်ဆုံး tools တွေထဲက တစ်ခုပါပဲ။ အဲ့ဒါကြောင့်ပဲ အရမ်းအရေးကြီးတာပါ။
 
 ## Readability
 
-Readability is not a binary characteristic. It's a largely subjective human factor describing our relationship to code. And it will naturally vary over time as our skills and understanding evolve. I have experienced effects similar to the following figure, and anecdotally many others I've talked to have as well.
+Readability က binary characteristic မဟုတ်ပါဘူး။ ကျနော်တို့တွေနဲ့ code တွေ ဘယ်လို ဆက်စပ်မှု ရှိလဲ ဆိုတာ လူသားတွေ ထည့်သွင်းစဉ်းစားတဲ့ အချက်အလက် ပေါ်မှာပဲ မူတည်ပါတယ်။ ကျနော်တို့ရဲ့ အရည်အချင်းတွေ နားလည်မှု ပေါ်မူတည်ပြီး ကျနော်တို့ရဲ့ အချိန်တွေက ကွဲပြားမှာပါ။
+ 
+အောက်က ပုံလိုမျိုး သက်ရောက်မှုကို ကျနော်လည်း ခံစားဖူးတယ်။ ပြီးတော့ ကျနော်နဲ့ စကားပြောဖူးတဲ့ လူတော်တော်များများရောပဲ။
+
 
 <p align="center">
     <img src="fig17.png" width="600">
 </p>
 
-You may just find yourself experiencing similar effects as you work through the book. But take heart; if you stick this out, the curve comes back up!
+ဒီစာအုပ်အတိုင်း လိုက်လုပ်ရင်း သင်လည်း ပုံစံတူ ခံစားရနိုင်ပေမယ့် မပူပါနဲ့ ဆက်သာလုပ်သွားပါ။ curve က ပြန်တက်လာမှာပါ။
 
-*Imperative* describes the code most of us probably already write naturally; it's focused on precisely instructing the computer *how* to do something. Declarative code -- the kind we'll be learning to write, which adheres to FP principles -- is code that's more focused on describing the *what* outcome.
+*Imperative* ဆိုတာ ကျနော်တို့ ရေးလေ့ ရှိတဲ့ code တွေကို ပြောတာပါ။ computer ကို တိတိကျကျ ဘယ်လို အလုပ်လုပ်ရမလဲ ညွှန်ကြားဖို့ အာရုံစိုက်တာပါ။ Declarative code က FP စည်းမျဉ်အတိုင်း ရေးဖို့သင်မယ့် အမျိုးအစားပါ။ ဘယ်လို outcome မျိုး ဖြစ်ရမလဲ ဆိုတဲ့ အပေါ်ပိုအာရုံထားပါတယ်။
 
-Let's revisit the two code snippets earlier in this chapter.
+အခု chapter အစက code snippets နှစ်ခုကို ပြန် ဆန်းစစ်ရအောင်။
 
 The first snippet is imperative, focused almost entirely on *how* to do the tasks; it's littered with `if` statements, `for` loops, temporary variables, reassignments, value mutations, function calls with side effects, and implicit data flow between functions. You certainly *can* trace through its logic to see how the numbers flow and change to the end state, but it's not at all clear and straightforward.
+
 
 The second snippet is more declarative; it does away with most of those aforementioned imperative techniques. Notice there's no explicit conditionals, loops, side effects, reassignments, or mutations; instead, it employs well-known (to the FP world, anyway!) and trustable patterns like filtering, reduction, transducing, and composition. The focus shifts from low-level *how* to higher level *what* outcomes.
 
