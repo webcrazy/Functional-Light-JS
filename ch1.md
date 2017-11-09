@@ -46,7 +46,7 @@ function outputMsg() {
     console.log( msg );
 }
 ```
-အခု အဖြေတော့ အတူတူပဲ၊ မတူတဲ့ ပုံစံ တစ်ခုကို စဉ်းစားကြည့်ပါ။
+အဖြေတော့ အတူတူပဲ၊ မတူတဲ့ ပုံစံ တစ်ခုကို စဉ်းစားကြည့်ပါ။
 
 ```js
 var sumOnlyFavorites = FP.compose( [
@@ -71,13 +71,13 @@ function constructMsg(v) { return `The magic number is: ${v}`; }
 ```
 FP နဲ့ Functional-Light ကိုသင်နားလည်ပြီဆိုရင် ဒုတိယ စာပိုဒ်ကို ဖတ်ပြီး  စိတ်ထဲကနေ နားလည်အောင်ကြိုးစားတဲ့အခါ ဒါမျိုးဖြစ်ကောင်းဖြစ်ပါလိမ့်မယ်။
 
-> ကျနော်တို့ functions သုံးခုပေါင်းထားတဲ့ `sumOnlyFavourites(..)`function တစ်ခုကို တည်ဆောက်ပါ့မယ်။ value တစ်ခုက 10 (သို့) 10 ထက်ကြီးလား စစ်တဲ့ filter နှင့် 20 သို့ 20 ထက်ငယ်လား စစ်တဲ့ filter နှစ်ခုကို ပေါင်းစပ်ပါ့မယ်။
-> နောက်ပြီး transducer composition မှာ `sum(..)` reducer ကို ပေါင်းထည့်ပါ့မယ်။ ရလာတဲ့ `sumOnlyFavourites(..)` က ထည့်လိုက်တဲ့ value တစ်ခုက filters နှစ်ခုစလုံးကို pass လား၊ pass တယ်ဆိုရင် accumulator value ထဲကို ပေါင်းထည့်တဲ့ reducer function တစ်ခုဖြစ်ပါတယ်။
+> ကျနော်တို့ functions သုံးခုပေါင်းထားတဲ့ `sumOnlyFavourites(..)`function တစ်ခုကို တည်ဆောက်တယ်။ value တစ်ခုက 10 (သို့) 10 ထက်ကြီးလား စစ်တဲ့ filter နှင့် 20 သို့ 20 ထက်ငယ်လား စစ်တဲ့ filter နှစ်ခုကို ပေါင်းထားတယ်။
+> နောက်ပြီး transducer composition မှာ `sum(..)` reducer ကို ပေါင်းထည့်တယ်။ ရလာတဲ့ `sumOnlyFavourites(..)` က ထည့်လိုက်တဲ့ value တစ်ခုက filters နှစ်ခုစလုံးကို pass လား၊ pass တယ်ဆိုရင် accumulator value ထဲကို ပေါင်းထည့်တဲ့ reducer function တစ်ခုဖြစ်လာတယ်။
+
+> နောက်ပြီး `printMagicNumber(..)`လို့ခေါ်တဲ့ function တစ်ခုလုပ်တယ်။ အဲ့ဒီ function က `sumOnlyFavourites(..)` သုံးပြီး numbers list ကို ပထမဆုံး reduce လုပ်တယ်။ "favourite" check ကို pass လာတဲ့ numbers တွေပဲ ပေါင်းထားတဲ့ ရလဒ် ရလာမယ်။ နောက်ပြီး `printMagicNumber(..)`ကနေ နောက်ဆုံး ပေါင်းလဒ်ကို `constructMsg(..)`ထဲထည့်ပေးပြီး ရလာတဲ့ string value ကို နောက်ဆုံး `console.log(..)` ထဲပို့လိုက်တယ်
 > 
-> Then we make another function called `printMagicNumber(..)` which first reduces a list of numbers using that `sumOnlyFavorites(..)` reducer we just defined, resulting in a sum of only numbers that passed the *favorite* checks. Then `printMagicNumber(..)` pipes that final sum into `constructMsg(..)`, which creates a string value that finally goes into `console.log(..)`.
-> နောက်ပြီး `printMagicNumber(..)`လို့ခေါ်တဲ့ function တစ်ခုပြုလုပ်ပါမယ်။ အဲ့ဒီ function က `sumOnlyFavourites(..)` သုံးပြီး numbers list ကို ပထမဆုံး reduce လုပ်မယ်။ "favourite" check ကို pass လာတဲ့ numbers တွေပဲ ပေါင်းထားတာရလာမယ်။ နောက်ပြီး `printMagicNumber(..)`ကနေ နောက်ဆုံး ပေါင်းလဒ်ကို `constructMsg(..)`ထဲထည့်ပေးပြီး ရလာတဲ့ string value ကို နောက်ဆုံး `console.log(..)`
-> 
-All those moving pieces *speak* to an FP developer in ways that likely seem highly unfamiliar to you right now. This book will help you *speak* that same kind of reasoning so that it's as readable to you as any other code, if not more so!
+
+FP developer တစ်ယောက် သုံးနှုန်းတဲ့ ဒီရွေ့လျားနေတဲ့ အစိတ်အပိုင်းတွေဟာ သင်နဲ့ လုံးဝ စိမ်းရင်စိမ်းနေမှာပါ။ သင်လည်း ဒီလိုပြောဆို သုံးနှုန်းတတ်လာအောင် ဒီစာအုပ်က သင်ပေးမှာပါ။ ဒီ code တွေဟာ သင့်ရဲ့ တစ်ခြား code တွေလိုပဲ readable ဖြစ်မှာပါ။ ပိုပြီးတောင် readable ဖြစ်နိုင်ပါတယ်။
 
 အခု code နှိုင်းယှဉ်မှုနှင့်ပတ်သတ်ပြီး မှတ်ချက်အချို့၊
 
@@ -87,7 +87,7 @@ All those moving pieces *speak* to an FP developer in ways that likely seem high
 
 * သင့်အတွက် အသုံးဝင်တဲ့ ဖတ်စရာ တစ်ခုခုများရှိမလားလို့ စာအုပ်အစမှာ ရှာဖွေနေတဲ့ အတွေ့အကြုံရှိပြီးသား FP developer လည်း ဖြစ်နိုင်ပါတယ်။ ဒုတိယ snippet မှာ ရင်းနှီးပြီးသား အစိတ်အပိုင်းတွေ အသေအချာ ရှိပါတယ်။ ငါဆိုရင်တော့ အဲ့လိုလုပ်ခဲ့မှာ မဟုတ်ဘူးလို့ မကြခဏ တွေးနေမယ်လို့လည်း လောင်းပါတယ်။ အဲ့လိုတွေးတာလည်း အဆင်ပြေပြီး ဆီလျော်ပါတယ်။
 
-  အခုစာအုပ်ဟာ သမရိုးကျ FB စာအုပ် မဟုတ်ပါဘူး။ We'll at times seem quite heretical in our approaches. We're seeking to strike a pragmatic balance between the clear undeniable benefits of FP, and the need to ship workable, maintainable JS without having to tackle a daunting mountain of math/notation/terminology. ဒါဟာ သင့်ရဲ့ FP မဟုတ်ပါဘူး။ "Functional-Lite JavaScript" ပဲဖြစ်ပါတယ်။
+ အခုစာအုပ်ဟာ သမရိုးကျ FP စာအုပ် မဟုတ်ပါဘူး။ ကျနော်တို့က တခါတရံ ကိုယ်ပိုင် ချည်းကပ်မှုကို တော်တော်လေး ယုံကြည်ကြတယ်။  FP ရဲ့ ငြင်းမရတဲ့ ကောင်းကွက်တွေနဲ့ ခက်ခဲတဲ့ သင်္ချာ၊ သင်္ကေတ၊ အသုံးအနှုန်း တွေမပါပဲ အလုပ်လုပ်တယ်၊ maintainable ဖြစ်တဲ့ JS တွေရဲ့ ကြားက လက်တွေ့ဆန်တဲ့ balance ကိုရှာဖွေကြမှာပါ။ ဒါဟာ သင့်ရဲ့ FP မဟုတ်ပါဘူး။ "Functional-Lite JavaScript" ပဲဖြစ်ပါတယ်။
 
 ဒီစာအုပ်ကို ဘယ်လို အကြောင်းကြောင့်ပဲဖတ်ဖတ် ကြိုဆိုပါတယ်။
 
@@ -117,8 +117,7 @@ code ရဲ့ ပိုအရေးကြီးတဲ့ အပိုင်း�
 
  developer တွေရဲ့ အချိန် 70% ကို code ကို maintenance လုပ်ဖို့ ဖတ်ပြီး နားလည်ဖို့ ကြိုးစားရင်း ကုန်ဆုံးသွားတယ်လို့ တော်တော်များများ ခန့်မှန်းကြတယ်။ ဒါက မျက်စိပွင့်စေပါတယ်။ တကမ္ဘာလုံး အတိုင်းအတာနဲ့ ယှဉ်ရင် programmer တစ်ယောက်ရဲ့ တစ်နေ့ ရေးတဲ့ code အကြောင်းရေ 10 ကြောင်းလောက်ပဲရှိတာ အံသြစရာ မဟုတ်ပါဘူး။ ကျနော်တို့ဟာ ကျနော်တို့ရဲ့ တစ်နေ့တာကို အဲ့ဒီ code 10 ကြောင်း ဘယ်နားသွားရေးရမလဲ တွေးနေရတာနဲ့ အချိန်ကုန်တာပါ။
 
-
-ကျနော်တော့ ကျနော်တို့ code တွေရဲ့ readability ကို ပို ဂရုစိုက်သင့်တယ် ထင်ပါတယ်။ ပြီးတော့ စကားမစပ် readability is not just about fewer characters. Readability is actually most impacted by familiarity. [1]
+ကျနော်တော့ ကျနော်တို့ code တွေရဲ့ readability ကို ပို ဂရုစိုက်သင့်တယ် ထင်ပါတယ်။ ပြီးတော့ စကားမစပ် readability ဆိုတာ code အကြောင်းရေ တိုခြင်းနဲ့ မဆိုင်ပါဘူး။ Readability ဆိုတာ တကယ်တော့ သင်နဲ့ code နဲ့ ဘယ်လောက် ရင်းနှီးမှု ရှိလည်းဆိုတာနဲ့ တိုင်းတာတာပါ။
 
 ကျနော်တို့ အချိန်တွေကို ဖတ်လွယ် နားလည်လွယ်အောင် ကြိုးစားမယ်ဆိုရင် FP က အဲ့ဒီ ကြိုးစားမှုမှာ အချက်အချာ ကျပါတယ်။ FP ရဲ့ စည်းကမ်းတွေဟာ အခြေကျပြီးသား၊ နက်နက်နဲနဲ လေ့လာပြီးသား ဖြစ်ပြီး သက်သေလည်းပြနိုင်ပါတယ်။ အဲ့ဒီ FP စည်းကမ်းတွေကို အချိန်ယူ သင်ပြီး အသုံးချခြင်းက သင်ကိုယ်တိုင် အတွက်ရော တခြားသူတွေ အတွက်ပါ လွယ်လွယ်ကူကူနဲ့ ရင်းနှီး မှတ်မိလွယ်တဲ့ code  တွေအဖြစ် ဉီးတည်စေမှာပါ။ code ရဲ့ ရင်းနှီးမှု နဲ့ မှတ်မိလွယ်မှု တိုးလာတာက code readability ပါ တိုးတက်စေပါတယ်။
 
@@ -146,7 +145,6 @@ Readability က binary characteristic မဟုတ်ပါဘူး။ ကျ�
 အခု chapter အစက code snippets နှစ်ခုကို ပြန် ဆန်းစစ်ရအောင်။
 
 ပထမ snippet က task ကို ဘယ်လို လုပ်ရမလဲ ဆိုတဲ့ အပေါ်မှာ လုံးဝ အာရုံစိုက်ထားတဲ့ imperative ပါ။  `if` statements, `for` loops တွေ, temporary variables တွေ, reassignments တွေ, value mutations တွေ, side effects ရှိတဲ့ function calls တွေ ပြီးတော့ function တွေကြားမှာ ဆက်စပ်နေတဲ့ data flow တွေ နဲ့ ရှုပ်နေပါတယ်။ အဲ့ဒီ numbers တွေ နောက်ဆုံး အဆင့်ကို ဘယ်လို ပြောင်းလဲသွားတယ်ဆိုတာ သင် သူ့ရဲ့ logic ကို ဆန်းစစ်နိုင်ပါတယ်။ ဒါပေမယ့် အကုန်လုံး နားလည်မလွယ်သလို ရှင်းရှင်းလင်းလင်းလဲ မရှိပါဘူး။
-
 
 ဒုတိယ snippet ကတော့ ပိုပြီး declarative ဖြစ်ပြီး ရှေ့ကပြောခဲ့တဲ့ imperative နည်းတွေ မသုံးထားပါဘူး။ explicit conditionals တွေ, loops တွေ, side effects တွေ, reassignments တွေ, mutations တွေ မရှိတာ သတိထားမိလား။  အဲ့ဒီအစား
 နာမည်ကြီး ပြီး စိတ်ချရတဲ့ filtering, reduction, transducing, and composition လို patterns တွေသုံးထားပါတယ်။ အာရုံစိုက်မှုတွေက low-level *how* ကနေ higher level *what* outcomes ကို ပြောင်းသွားပါပြီ။
@@ -180,8 +178,7 @@ I'm not trying to dampen your spirits. သင့်ကိုစိတ်ပျ�
 
 
 ## Perspective
-
-We're going to approach FP from the ground up -- it seems to me most other FP texts go the opposite direction: top-down -- and discover the basic foundational principles that I believe formal FPers would admit are the scaffolding for everything they do. But for the most part we'll stay arms length away from most of the intimidating terminology or mathematical notation that can so easily frustrate learners.
+ကျနော်တို့စခု FP ကို အစကနေ ချည်းကပ်ပါ့မယ်။ သမရိုးကျ FP ရေးသူတွေကတော့ သူတို့လုပ်ပုံလုပ်နည်း scaffolding လို့ပြောတဲ့  အခြေခံ စည်းကမ်းတွေကို လေ့လာသွားမှာပါ။   ကျနော့ အမြင်တော့ တခြား FP စာအုပ်တွေနဲ့ က ပြောင်းပြန်နည်း top-down နဲ့ သွားပါတယ်။ အချိန်တော်တော်များများကိုတော့ သင်ယူသူတွေကို အလွယ်တကူ စိတ်ရှုပ် ကြောက်လန့်စေတဲ့ အသုံးအနှုန်း (သို့) သင်္ချာ သင်္ကေတ တွေနဲ့ ဝေးနိုင်သမျှဝေးဝေးမှာ နေမှာပါ။
 
 သင်ဟာ တစ်ခုခုဆို ဘယ်လိုခေါ်လဲ ဆိုတာထက် အဲ့ဒါကဘာလဲ၊ ဘယ်လို အလုပ်လုပ်လဲ ဆိုတာ နားလည်ဖို့က ပိုအရေးကြီးတယ်လို့ ကျနော်ယုံကြည်ပါတယ်။ အဲ့လိုပြောတာက အသုံးအနှုန်းတွေကို ပြန်လည်ရှင်းပြ ဖြန့်ဝေဖို့ အရေးမကြီးဘူး ပြောတာမဟုတ်ပါဘူး။ အဲ့ဒါက အတွေ့အကြုံရှိပြီးသား professionals ကြားမှာ ဆက်သွယ်မှုတွေကို ပိုမိုလွယ်ကူစေတာကတော့ သံသယ မရှိပါဘူး။  သင်ယူသူ အတွက်ကတော့ အာရုံပျံ့လွှင့်စေပါတယ်။
 
@@ -197,7 +194,7 @@ FP သင်ယူသူ တော်တော်များများက သ
 
 ## How To Find Balance
 
-သင်က programming မှာ ရင်းနှီးပြီးသားသူ ဆိုရင် သင်အရင်က "YAGNI" ဆိုတဲ့ အသုံး အနှုန်းကို ကြားဖူးကောင်းကြားဖူးမှာပါ။ သင့်အတွက် အဲ့ဒါ မလိုပါဘူး။ This principle primarily comes from extreme programming, and stresses the high risk and cost of building a feature before it's needed.
+သင်က programming မှာ ရင်းနှီးပြီးသားသူ ဆိုရင် သင်အရင်က "YAGNI" ဆိုတဲ့ အသုံး အနှုန်းကို ကြားဖူးကောင်းကြားဖူးမှာပါ။ သင့်အတွက် အဲ့ဒါ မလိုပါဘူး။ ဒီစည်းမျဉ်းက တင်းကျပ်တဲ့ programming ဆီကနေ လာတာပါ။ ပြီးတော့ တကယ်တန်း အသုံးမလိုသေးခင်မှာ feature တစ်ခုဆောက်တဲ့ ကုန်ကျစရိတ်နဲ့ တခြား အန္တရာယ် တွေကိုလည်း တွေးပြီး စိတ်ဖိစီးစေပါတယ်။ 
 
 တစ်ခါတစ်လေမှာ ကျနော်တို့က feature တစ်ခုလိုအပ်မယ်၊ အဲ့ဒါက တခြား feature တွေ ထပ်ဆောက်ရင်လည်း ပိုအသုံးဝင်မယ် လို့ ထင်ပြီး ဆောက်လိုက်မယ်၊ ဒါပေမယ့် ကျနော်တို့ ခန့်မှန်းတာ မှားပြီး အဲ့ဒီ feature က မလိုအပ်ဘူး၊ အဲ့ဒါထက်နဲနဲကွဲတဲ့ ပုံစံကို လိုအပ်တာဆိုတာ နောက်မှသိတယ်။ တစ်ခါတစ်လေမှာ ခန့်မှန်းတာတော့မှန်ပေမယ့် feature ကို စောပြီးဆောက်လိုက်လို့ အခုလိုအပ်နေတဲ့ feature ဆီက အချိန်တွေယူသွားသလို့ ကျနော်တို့ရဲ့ ခွန်အားတွေလည်း ဆုံးရှုံစေတယ်။
 
